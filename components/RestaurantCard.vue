@@ -14,6 +14,7 @@
           <div class="columns">
             <div class="column">
               <span class="is-category tag">{{ category }}</span>
+              <span class="is-category tag is-primary">{{ city }}</span>
             </div>
             <div class="column has-text-right">
               <button class="button is-info" @click="sumLikes">
@@ -25,6 +26,9 @@
       </div>
       <div class="content">
         {{ description }}. <a :href="slug">More info</a>
+      </div>
+      <div class="content">
+        {{ texto | truncate(20) }}
       </div>
     </div>
   </div>
@@ -51,6 +55,14 @@ export default {
     likes: {
       type: Number,
       default: 0
+    },
+    city: {
+      type: String,
+      default: ''
+    },
+    texto: {
+      type: String,
+      default: ''
     }
   },
   methods: {

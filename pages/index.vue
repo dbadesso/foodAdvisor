@@ -1,44 +1,82 @@
 <template>
-  <div class="container">
-    <Hero>
-      <div slot="header">
-        <p>Soy el slot desde el padre</p>
-      </div>
+  <div>
+    <Hero @onShowBanner="changeShowBannerValue">
+      <Banner v-if="showBanner" slot="header" />
+      <Slogan v-else slot="header" />
     </Hero>
-    <section class="section">
-      <RestaurantCard
-        name="Bar Tolo"
-        description="Descripción del restaurante"
-        category="burger"
-        slug="bar-tolo"
-        :likes="likes"
-        @onLikeButton="sumLikes"
-      />
-    </section>
+    <div class="container">
+      <section class="section">
+        <div class="columns is-multiline">
+          <RestaurantCard
+            v-for="(restaurant, index) in restaurants"
+            :key="index"
+            :name="restaurant.name"
+            :description="restaurant.description"
+            :category="restaurant.category"
+            :slug="restaurant.slug"
+            :likes="restaurant.likes"
+            :city="restaurant.city"
+            :image="restaurant.image"
+            :texto="restaurant.text"
+            class="restaurant-card"
+            @onLikeButton="sumLikes(restaurant)"
+          />
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
 import RestaurantCard from '~/components/RestaurantCard'
 import Hero from '~/components/Hero'
+import Banner from '~/components/Banner'
+import Slogan from '~/components/Slogan'
+import api from '~/services/api'
+
 export default {
   components: {
     RestaurantCard,
-    Hero
+    Hero,
+    Banner,
+    Slogan
   },
   data () {
     return {
-      likes: 0
+      likes: 0,
+      showBanner: true,
+      restaurants: []
+    }
+  },
+  async created () {
+    const response = await api.getRestaurants()
+    if (response.status === 200) {
+      this.restaurants = response.data
     }
   },
   methods: {
-    sumLikes () {
-      this.likes++
+    async sumLikes (restaurant) {
+      const payload = {
+        id: restaurant.id,
+        data: {
+          likes: restaurant.likes + 1
+        }
+      }
+      const response = await api.putSumRestaurantLikes(payload)
+      if (response.status === 200) {
+        restaurant.likes++
+      }
+    },
+    changeShowBannerValue () {
+      this.showBanner = !this.showBanner
     }
   }
 }
 </script>
 
 <style>
-
+.restaurant-card {
+  margin: 10px 10px;
+  max-width: 300px;
+}
 </style>
