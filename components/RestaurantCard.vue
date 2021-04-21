@@ -9,28 +9,57 @@
       <div class="media">
         <div class="media-content">
           <p class="title is-4 restaurant-name">
-            Restaurant name
+            {{ name }}
           </p>
           <div class="columns">
             <div class="column">
-              <span class="is-category tag">Category</span>
+              <span class="is-category tag">{{ category }}</span>
             </div>
             <div class="column has-text-right">
-              <button class="button is-info">
-                0
+              <button class="button is-info" @click="sumLikes">
+                {{ likes }}
               </button>
             </div>
           </div>
         </div>
       </div>
       <div class="content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta natus, aperiam animi a aliquam impedit consequatur blanditiis? Sed vitae ducimus praesentium quisquam. Voluptatem aut iure magnam perferendis corrupti pariatur nobis?<a href="#">More info</a>
+        {{ description }}. <a :href="slug">More info</a>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {}
+export default {
+  props: {
+    name: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: ''
+    },
+    slug: {
+      type: String,
+      default: ''
+    },
+    category: {
+      type: String,
+      default: ''
+    },
+    likes: {
+      type: Number,
+      default: 0
+    }
+  },
+  methods: {
+    sumLikes () {
+      this.$emit('onLikeButton')
+      // this.likes++
+    }
+  }
+}
 </script>
 <style>
 </style>

@@ -15,6 +15,7 @@
     <p>Nombre:</p>
     <input v-model="name" type="text">
     {{ name }}
+    {{ nameReverser }}
     <!-- v-on:click => @click -->
     <button class="button is-info" @click="saludo">
       Saluda
@@ -29,6 +30,11 @@ export default {
       num: 15,
       items: [1, 2, 3, 4, 5],
       name: ''
+    }
+  },
+  computed: {
+    nameReverser () {
+      return this.name.split('').reverse().join('')
     }
   },
   methods: {
