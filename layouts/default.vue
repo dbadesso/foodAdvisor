@@ -9,7 +9,6 @@
 import Header from '~/layouts/Header'
 export default {
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     Header
   }
 }

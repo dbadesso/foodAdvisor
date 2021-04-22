@@ -12,14 +12,12 @@
             :key="index"
             :name="restaurant.name"
             :description="restaurant.description"
-            :category="restaurant.category"
             :slug="restaurant.slug"
+            :category="restaurant.category"
             :likes="restaurant.likes"
-            :city="restaurant.city"
             :image="restaurant.image"
-            :texto="restaurant.text"
             class="restaurant-card"
-            @onLikeButton="sumLikes(restaurant)"
+            @onLikeButton="sumRestaurantLikes(restaurant)"
           />
         </div>
       </section>
@@ -41,6 +39,14 @@ export default {
     Banner,
     Slogan
   },
+  async asyncData () {
+    try {
+      const response = await api.getRestaurants()
+      return { restaurants: response.data }
+    } catch {
+      return { restaurant: [] }
+    }
+  },
   data () {
     return {
       likes: 0,
@@ -48,12 +54,12 @@ export default {
       restaurants: []
     }
   },
-  async created () {
-    const response = await api.getRestaurants()
-    if (response.status === 200) {
-      this.restaurants = response.data
-    }
-  },
+  // async created() {
+  //  const response = await api.getRestaurants()
+  //  if (response.status === 200) {
+  //    this.restaurants = response.data
+  //  }
+  // },
   methods: {
     async sumLikes (restaurant) {
       const payload = {

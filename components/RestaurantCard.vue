@@ -1,8 +1,8 @@
 <template>
-  <div class="card" style="width:400px;">
+  <div class="card" style="width: 400px">
     <div class="card-image">
-      <figure>
-        <img src="~/assets/images/restaurant.jpg" alt="Pizza Restaurant">
+      <figure class="image">
+        <img :src="image" alt="Pizza Restaurant" class="restaurant-image">
       </figure>
     </div>
     <div class="card-content">
@@ -13,11 +13,14 @@
           </p>
           <div class="columns">
             <div class="column">
-              <span class="is-category tag">{{ category }}</span>
-              <span class="is-category tag is-primary">{{ city }}</span>
+              <span class="is-category tag">
+                <nuxt-link :to="category">
+                  {{ category }}
+                </nuxt-link>
+              </span>
             </div>
             <div class="column has-text-right">
-              <button class="button is-info" @click="sumLikes">
+              <button class="button is-info" @click="onLikeButton">
                 {{ likes }}
               </button>
             </div>
@@ -25,14 +28,13 @@
         </div>
       </div>
       <div class="content">
-        {{ description }}. <a :href="slug">More info</a>
-      </div>
-      <div class="content">
-        {{ texto | truncate(20) }}
+        {{ description }}
+        <a :href="`${category}/${slug}`">more info</a>.
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -44,11 +46,11 @@ export default {
       type: String,
       default: ''
     },
-    slug: {
+    category: {
       type: String,
       default: ''
     },
-    category: {
+    slug: {
       type: String,
       default: ''
     },
@@ -56,22 +58,27 @@ export default {
       type: Number,
       default: 0
     },
-    city: {
-      type: String,
-      default: ''
-    },
-    texto: {
+    image: {
       type: String,
       default: ''
     }
   },
   methods: {
-    sumLikes () {
+    onLikeButton () {
       this.$emit('onLikeButton')
       // this.likes++
     }
   }
 }
 </script>
-<style>
+
+<style scoped>
+.restaurant-name {
+  font-size: 30px;
+  color: #8ae6ff;
+}
+.restaurant-image {
+  width: auto;
+  height: 200px;
+}
 </style>
