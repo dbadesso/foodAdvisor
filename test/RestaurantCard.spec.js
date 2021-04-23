@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { RouterLinkStub, mount } from '@vue/test-utils'
 import RestaurantCard from '~/components/RestaurantCard'
 
 describe('RestaurantCard', () => {
@@ -14,8 +14,21 @@ describe('RestaurantCard', () => {
     likes: 0,
     image: 'https://netfly.pedrojimenez.info/photosCursoOpenWebinar/restaurant08.jpg'
   }
-  const wrapper = mount(RestaurantCard, { propsData: props })
+  // const wrapper = mount(RestaurantCard, { propsData: props })
+  const wrapper = mount(RestaurantCard, {
+    propsData: props,
+    stubs: {
+      NuxtLink: RouterLinkStub
+    }
+  })
+
   test('Is mounted', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
+  })
+
+  // comprobamos que las propiedades tienen el nombre que deben tener
+  test('Is rendering a restaurant', () => {
+    expect(wrapper.props().description).toBe('description')
+    expect(wrapper.props().name).toBe('nombre')
   })
 })

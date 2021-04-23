@@ -14,9 +14,9 @@
           <div class="columns">
             <div class="column">
               <span class="is-category tag">
-                <nuxt-link :to="category">
+                <NuxtLink :to="category">
                   {{ category }}
-                </nuxt-link>
+                </NuxtLink>
               </span>
             </div>
             <div class="column has-text-right">

@@ -8,14 +8,14 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <nuxt-link to="/">
+              <NuxtLink to="/">
                 Home
-              </nuxt-link>
+              </NuxtLink>
             </li>
             <li>
-              <nuxt-link :to="`/${$route.params.category}`" aria-current="page">
+              <NuxtLink :to="`/${$route.params.category}`" aria-current="page">
                 {{ $route.params.category }}
-              </nuxt-link>
+              </NuxtLink>
             </li>
             <li class="is-active">
               <a href="#" aria-current="page">{{ restaurant.name }}</a>
@@ -66,7 +66,7 @@ export default {
   async asyncData ({ params }) {
     try {
       const payload = {
-        slug: params.slug
+        slug: params.slugXX
       }
       const { data } = await api.getOneRestaurant(payload)
       return { restaurant: data.shift() }

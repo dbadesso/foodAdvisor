@@ -1,6 +1,8 @@
 <template>
   <div class="buttons">
-    <a href="/" class="button is-info"> Return Home </a>
+    <NuxtLink to="/" class="button is-info">
+      Return Home
+    </NuxtLink>
   </div>
 </template>
 

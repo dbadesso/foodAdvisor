@@ -7,9 +7,9 @@
       <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
           <li>
-            <nuxt-link to="/">
+            <NuxtLink to="/">
               Home
-            </nuxt-link>
+            </NuxtLink>
           </li>
           <li class="is-active">
             <a href="#" aria-current="page">{{ $route.params.category }}</a>

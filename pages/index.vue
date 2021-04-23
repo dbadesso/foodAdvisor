@@ -31,6 +31,7 @@ import Hero from '~/components/Hero'
 import Banner from '~/components/Banner'
 import Slogan from '~/components/Slogan'
 import api from '~/services/api'
+import { db } from '~/plugins/firebase'
 
 export default {
   components: {
@@ -53,6 +54,10 @@ export default {
       showBanner: true,
       restaurants: []
     }
+  },
+  created () {
+    // eslint-disable-next-line no-console
+    console.log(db)
   },
   // async created() {
   //  const response = await api.getRestaurants()
