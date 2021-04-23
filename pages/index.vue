@@ -40,14 +40,14 @@ export default {
     Banner,
     Slogan
   },
-  async asyncData () {
-    try {
-      const response = await api.getRestaurants()
-      return { restaurants: response.data }
-    } catch {
-      return { restaurant: [] }
-    }
-  },
+  // async asyncData () {
+  //   try {
+  //     const response = await api.getRestaurants()
+  //     return { restaurants: response.data }
+  //   } catch {
+  //     return { restaurant: [] }
+  //   }
+  // },
   data () {
     return {
       likes: 0,
@@ -56,8 +56,21 @@ export default {
     }
   },
   created () {
-    // eslint-disable-next-line no-console
-    console.log(db)
+    const data = db.collection('restaurants').get()
+    data
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          const restaurant = {
+            id: doc.id,
+            ...doc.data()
+          }
+          this.restaurants.push(restaurant)
+        })
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error)
+      })
   },
   // async created() {
   //  const response = await api.getRestaurants()

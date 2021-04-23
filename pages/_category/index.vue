@@ -39,24 +39,28 @@
 
 <script>
 import RestaurantCard from '~/components/RestaurantCard'
-import api from '~/services/api'
+// import api from '~/services/api'
+import { db } from '~/plugins/firebase'
 
 export default {
   components: {
     RestaurantCard
   },
-  async asyncData ({ params }) {
-    try {
-      /* petición getRestaurantsByCategory() */
-      const payload = {
-        category: params.category
-      }
-      const { data } = await api.getRestaurantsByCategory(payload)
-      return { restaurants: data }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log({ statusCode: 404, message: 'Category not found' })
+  data () {
+    return {
+      restaurants: []
     }
+  },
+  async created () {
+    await db
+      .collection('restaurants')
+      .where('category', '==', this.$route.params.category)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.restaurants.push(doc.data())
+        })
+      })
   }
 }
 </script>

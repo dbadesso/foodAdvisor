@@ -8,13 +8,35 @@
         <div class="buttons">
           <a href="/login" class="button is-light"> Log in </a>
         </div>
+        <!--
+        <div class="buttons">
+          <a href="/logout" class="button is-light"> Log Out </a>
+        </div>
+        -->
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-export default {}
+// import { firebase } from '~/plugins/firebase'
+
+export default {
+  /*
+  data () {
+    return {
+      logged: firebase.auth().onAuthStateChanged(function (logged) {
+        // return logged
+        const uid = logged.uid
+        if (uid !== '') {
+          return false
+        } else { return true }
+        // console.log('Resultado:', logged)
+      })
+    }
+  }
+  */
+}
 </script>
 
 <style scoped>

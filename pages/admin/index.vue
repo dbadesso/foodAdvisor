@@ -41,15 +41,19 @@
           <NuxtLink class="button is-warning" to="admin/create">
             Add new
           </Nuxtlink>
+          <button class="button is-warning" @click="logOut()">
+            LogOut
+          </button>
         </div>
       </div>
     </section>
   </div>
 </template>
 <script>
-import { db } from '~/plugins/firebase'
+import { db, firebase } from '~/plugins/firebase'
 
 export default {
+  middleware: 'auth',
   data () {
     return {
       restaurants: []
@@ -81,6 +85,10 @@ export default {
       const ref = db.collection('restaurants').doc(id)
       ref.delete()
       this.getDocument() // refrescamos la lista
+    },
+    logOut () {
+      firebase.auth().signOut()
+      this.$router.push('/')
     }
   }
 }
