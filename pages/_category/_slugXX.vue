@@ -65,6 +65,14 @@
 import { db } from '~/plugins/firebase'
 
 export default {
+  head () {
+    return {
+      title: 'FoodAdvisor ' + this.restaurant.name,
+      meta: [
+        { hid: 'description' }
+      ]
+    }
+  },
   async asyncData ({ params }) {
     const ref = db.collection('restaurants').where('slug', '==', params.slugXX)
     let snapshot

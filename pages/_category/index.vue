@@ -46,6 +46,14 @@ export default {
   components: {
     RestaurantCard
   },
+  head () {
+    return {
+      title: 'FoodAdvisor => ' + this.$route.params.category,
+      meta: [
+        { hid: 'description', content: 'contenido curso nuxt' }
+      ]
+    }
+  },
   data () {
     return {
       restaurants: []
